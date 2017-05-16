@@ -8,11 +8,13 @@ namespace Ship
     public class ShipController : GameEntity
     {
         [SerializeField]
-        private Transform[] m_Waypoints;
+        internal Transform[] m_Waypoints;
         internal int m_CurrentWaypoint;
 
         [SerializeField]
         internal GameObject m_Ship;
+
+        public float m_LerpRate = 8f;
 
         protected override void Start()
         {
