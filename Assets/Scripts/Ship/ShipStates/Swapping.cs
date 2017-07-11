@@ -9,10 +9,12 @@ namespace Ship
     {
         protected ShipController m_Controller;
         private Transform m_Point;
+        private bool m_Vertical;
 
-        public Swapping(Transform point) : base()
+        public Swapping(Transform point, bool vertical) : base()
         {
             m_Point = point;
+            m_Vertical = vertical;
         }
 
         public override void Enter()
@@ -31,14 +33,27 @@ namespace Ship
 
             var diff = (m_Point.position - m_Controller.m_Ship.transform.position);
             var mag = diff.magnitude;
-            var m = 3f;
-            if (diff.x > 0)
+            
+            if (m_Vertical)
             {
-                m = -m;
+                var m = 3f;
+                if (diff.y > 0)
+                {
+                    m = -m;
+                }
+                m_Controller.m_Ship.transform.Rotate(m_Controller.m_Ship.transform.right, mag / m);
+            }
+            else
+            {
+                var m = 3f;
+                if (diff.x > 0)
+                {
+                    m = -m;
+                }
+                m_Controller.m_Ship.transform.Rotate(m_Controller.m_Ship.transform.forward, mag / m);
+                //m_Controller.m_Ship.transform.Rotate(m_Controller.m_Ship.transform.up, mag / m * -1.2f);
             }
 
-            m_Controller.m_Ship.transform.Rotate(m_Controller.m_Ship.transform.forward, mag / m);
-            m_Controller.m_Ship.transform.Rotate(m_Controller.m_Ship.transform.up, mag / m * -1.2f);
 
             if (mag <= 1f)
             {

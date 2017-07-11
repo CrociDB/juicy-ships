@@ -56,7 +56,7 @@ namespace Ship
             if (waypoint != null)
             {
                 m_Controller.m_CurrentWaypointX--;
-                m_Controller.SetState(new Swapping(waypoint));
+                m_Controller.SetState(new Swapping(waypoint, false));
             }
         }
 
@@ -66,7 +66,7 @@ namespace Ship
             if (waypoint != null)
             {
                 m_Controller.m_CurrentWaypointX++;
-                m_Controller.SetState(new Swapping(waypoint));
+                m_Controller.SetState(new Swapping(waypoint, false));
             }
         }
 
@@ -76,7 +76,7 @@ namespace Ship
          if (waypoint != null)
          {
             m_Controller.m_CurrentWaypointY++;
-            m_Controller.SetState(new Swapping(waypoint));
+            m_Controller.SetState(new Swapping(waypoint, true));
          }
       }
 
@@ -86,7 +86,7 @@ namespace Ship
          if (waypoint != null)
          {
             m_Controller.m_CurrentWaypointY--;
-            m_Controller.SetState(new Swapping(waypoint));
+            m_Controller.SetState(new Swapping(waypoint, true));
          }
       }
    }
