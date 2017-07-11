@@ -15,7 +15,7 @@ namespace Ship
         {
             base.Enter();
             m_Controller = (ShipController)m_Entity;
-            m_CurrentWaypoint = m_Controller.m_Waypoints[m_Controller.m_CurrentWaypoint];
+            m_CurrentWaypoint = m_Controller.m_Waypoints[m_Controller.m_CurrentWaypointY].m_Waypoints[m_Controller.m_CurrentWaypointX];
         }
 
         public override void Update()
@@ -40,6 +40,14 @@ namespace Ship
             {
                 GoRight();
             }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                GoUp();
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                GoDown();
+            }
         }
 
         private void GoLeft()
@@ -47,7 +55,7 @@ namespace Ship
             var waypoint = m_Controller.GetLeft();
             if (waypoint != null)
             {
-                m_Controller.m_CurrentWaypoint--;
+                m_Controller.m_CurrentWaypointX--;
                 m_Controller.SetState(new Swapping(waypoint));
             }
         }
@@ -57,9 +65,29 @@ namespace Ship
             var waypoint = m_Controller.GetRight();
             if (waypoint != null)
             {
-                m_Controller.m_CurrentWaypoint++;
+                m_Controller.m_CurrentWaypointX++;
                 m_Controller.SetState(new Swapping(waypoint));
             }
         }
-    }
+
+      private void GoUp()
+      {
+         var waypoint = m_Controller.GetUp();
+         if (waypoint != null)
+         {
+            m_Controller.m_CurrentWaypointY++;
+            m_Controller.SetState(new Swapping(waypoint));
+         }
+      }
+
+      private void GoDown()
+      {
+         var waypoint = m_Controller.GetDown();
+         if (waypoint != null)
+         {
+            m_Controller.m_CurrentWaypointY--;
+            m_Controller.SetState(new Swapping(waypoint));
+         }
+      }
+   }
 }

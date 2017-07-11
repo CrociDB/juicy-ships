@@ -5,11 +5,18 @@ using UnityEngine;
 
 namespace Ship
 {
+    [System.Serializable]
+    class ShipLineWaypoints
+    {
+        public Transform[] m_Waypoints;
+    }
+
     public class ShipController : GameEntity
     {
         [SerializeField]
-        internal Transform[] m_Waypoints;
-        internal int m_CurrentWaypoint;
+        internal ShipLineWaypoints[] m_Waypoints;
+        internal int m_CurrentWaypointX;
+        internal int m_CurrentWaypointY;
 
         [SerializeField]
         internal GameObject m_Ship;
@@ -19,34 +26,54 @@ namespace Ship
         protected override void Start()
         {
             base.Start();
-            m_CurrentWaypoint = 1;
+            m_CurrentWaypointX = 1;
 
             SetState(new Idle());
         }
 
         internal Transform GetLeft()
         {
-            if (m_CurrentWaypoint == 0)
+            if (m_CurrentWaypointX == 0)
             {
                 return null;
             }
 
-            return m_Waypoints[m_CurrentWaypoint - 1];
+            return m_Waypoints[m_CurrentWaypointY].m_Waypoints[m_CurrentWaypointX - 1];
         }
 
         internal Transform GetRight()
         {
-            if (m_CurrentWaypoint == m_Waypoints.Length - 1)
+            if (m_CurrentWaypointX == m_Waypoints[m_CurrentWaypointY].m_Waypoints.Length - 1)
             {
                 return null;
             }
 
-            return m_Waypoints[m_CurrentWaypoint + 1];
+            return m_Waypoints[m_CurrentWaypointY].m_Waypoints[m_CurrentWaypointX + 1];
         }
 
-        void Update ()
+        internal Transform GetUp()
         {
-		
-	    }
+            if (m_CurrentWaypointY == m_Waypoints.Length - 1)
+            {
+                return null;
+            }
+
+            return m_Waypoints[m_CurrentWaypointY + 1].m_Waypoints[m_CurrentWaypointX];
+        }
+
+        internal Transform GetDown()
+        {
+            if (m_CurrentWaypointY == 0)
+            {
+                return null;
+            }
+
+            return m_Waypoints[m_CurrentWaypointY - 1].m_Waypoints[m_CurrentWaypointX];
+        }
+
+        void Update()
+        {
+
+        }
     }
 }
