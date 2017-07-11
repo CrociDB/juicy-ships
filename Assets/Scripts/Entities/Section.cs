@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Section : MonoBehaviour
+namespace Entities
 {
-    public float m_Speed = 1f;
-
-	void Update ()
+    public class Section : MonoBehaviour
     {
-        transform.position += transform.forward * -m_Speed;	
-	}
+        public float m_Speed = 1f;
+
+	    void Update ()
+        {
+            transform.position += transform.forward * -(m_Speed * Time.deltaTime);	
+	    }
+    }
 }
+
