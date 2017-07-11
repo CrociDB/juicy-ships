@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Ship
 {
@@ -15,19 +16,26 @@ namespace Ship
     {
         [SerializeField]
         internal ShipLineWaypoints[] m_Waypoints;
+
         internal int m_CurrentWaypointX;
         internal int m_CurrentWaypointY;
+
+        [SerializeField]
+        internal Transform[] m_Lines;
 
         [SerializeField]
         internal GameObject m_Ship;
 
         public float m_LerpRate = 8f;
 
-        protected override void Start()
+        void Awake()
         {
             base.Start();
-            m_CurrentWaypointX = 1;
+        }
 
+        public void Init()
+        {
+            m_CurrentWaypointX = 1;
             SetState(new Idle());
         }
 

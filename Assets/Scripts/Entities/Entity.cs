@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Entities
 {
-    public class Energy : Entity
+    public class Entity : MonoBehaviour
     {
-
+        public float m_ZDistance;
     }
 }
