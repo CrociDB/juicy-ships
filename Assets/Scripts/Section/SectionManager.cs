@@ -69,7 +69,7 @@ namespace SectionControl
 
                 if (front < m_ThresholdFront)
                 {
-                    CreateSection(l, m_Ship.transform.position + (m_Ship.transform.forward * m_ThresholdFront) + endPosition);
+                    CreateSection(l, endPosition);
                 }
 
                 l++;
