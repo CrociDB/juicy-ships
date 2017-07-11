@@ -28,7 +28,7 @@ namespace Ship
 
         public float m_LerpRate = 8f;
 
-        void Awake()
+        protected override void Start()
         {
             base.Start();
         }

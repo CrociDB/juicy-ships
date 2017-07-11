@@ -41,9 +41,13 @@ namespace SectionControl
 
         void Update()
         {
+            if (m_CurrentSections == null)
+            {
+                return;
+            }
+
             var l = 0;
             foreach (var line in m_CurrentSections)
-                //var line = m_CurrentSections[0];
             {
                 float front = 0f;
                 Vector3 endPosition = Vector3.zero;

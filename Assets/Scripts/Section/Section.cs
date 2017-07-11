@@ -31,7 +31,8 @@ namespace SectionControl
         {
             get
             {
-                return transform.position + m_Size + transform.forward * m_DefaultSpace;
+                var pos = transform.position + m_Size + transform.forward * m_DefaultSpace;
+                return new Vector3(pos.x, 0f, pos.z);
             }
         }
 
