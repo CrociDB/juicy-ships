@@ -24,7 +24,7 @@ namespace Ship
         internal Transform[] m_Lines;
 
         [SerializeField]
-        internal GameObject m_Ship;
+        internal ShipObject m_Ship;
 
         public float m_LerpRate = 8f;
 
