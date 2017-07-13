@@ -36,7 +36,7 @@ namespace Ship
             
             if (m_Vertical)
             {
-                var m = 3f;
+                var m = 2f;
                 if (diff.y > 0)
                 {
                     m = -m;
