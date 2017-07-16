@@ -10,6 +10,14 @@ namespace SimpleStateMachine
 		protected State m_CurrentState;
 		protected State m_LastState;
 
+        public State CurrentState
+        {
+            get
+            {
+                return m_CurrentState;
+            }
+        }
+
         public void SetEntity(GameEntity entity)
         {
             m_Entity = entity;

@@ -22,5 +22,10 @@ namespace SimpleStateMachine
         {
             m_StateMachine.SetState(newState);
         }
+
+        public State GetState()
+        {
+            return m_StateMachine.CurrentState;
+        }
     }
 }

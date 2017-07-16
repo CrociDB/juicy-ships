@@ -32,7 +32,7 @@ namespace Game
         private IEnumerator InitGame()
         {
             yield return new WaitForEndOfFrame();
-            m_ShipController.Init();
+            m_ShipController.Init(this);
             m_SectionManager.Init(m_ShipController);
         }
     }

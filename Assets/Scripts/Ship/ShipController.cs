@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Game;
 
 namespace Ship
 {
@@ -14,6 +15,9 @@ namespace Ship
 
     public class ShipController : GameEntity
     {
+        private GameManager m_GameManager;
+
+        [Header("Settings")]
         [SerializeField]
         internal ShipLineWaypoints[] m_Waypoints;
 
@@ -26,15 +30,34 @@ namespace Ship
         [SerializeField]
         internal ShipObject m_Ship;
 
+        [Header("Game Settings")]
         public float m_LerpRate = 8f;
+        public float m_TimeInDash = .5f;
+
+        public GameManager GameManager
+        {
+            get
+            {
+                return m_GameManager;
+            }
+        }
+
+        public bool Dashing
+        {
+            get
+            {
+                return GetState() is Dashing;
+            }
+        }
 
         protected override void Start()
         {
             base.Start();
         }
 
-        public void Init()
+        public void Init(GameManager gameManager)
         {
+            m_GameManager = gameManager;
             m_CurrentWaypointX = 1;
             SetState(new Idle());
         }

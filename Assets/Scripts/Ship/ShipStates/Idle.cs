@@ -48,6 +48,10 @@ namespace Ship
             {
                 GoDown();
             }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Dash();
+            }
         }
 
         private void GoLeft()
@@ -70,24 +74,29 @@ namespace Ship
             }
         }
 
-      private void GoUp()
-      {
-         var waypoint = m_Controller.GetUp();
-         if (waypoint != null)
-         {
-            m_Controller.m_CurrentWaypointY++;
-            m_Controller.SetState(new Swapping(waypoint, true));
-         }
-      }
+        private void GoUp()
+        {
+            var waypoint = m_Controller.GetUp();
+            if (waypoint != null)
+            {
+                m_Controller.m_CurrentWaypointY++;
+                m_Controller.SetState(new Swapping(waypoint, true));
+            }
+        }
 
-      private void GoDown()
-      {
-         var waypoint = m_Controller.GetDown();
-         if (waypoint != null)
-         {
-            m_Controller.m_CurrentWaypointY--;
-            m_Controller.SetState(new Swapping(waypoint, true));
-         }
-      }
-   }
+        private void GoDown()
+        {
+            var waypoint = m_Controller.GetDown();
+            if (waypoint != null)
+            {
+                m_Controller.m_CurrentWaypointY--;
+                m_Controller.SetState(new Swapping(waypoint, true));
+            }
+        }
+
+        private void Dash()
+        {
+            m_Controller.SetState(new Dashing());
+        }
+    }
 }
