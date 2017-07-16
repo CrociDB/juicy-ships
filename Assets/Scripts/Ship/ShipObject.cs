@@ -12,8 +12,8 @@ namespace Ship
     public class ShipObject : GameEntity
     {
         public Action<Collider> OnCollide;
-
         private Sequence m_BumpSequence;
+        public ShipController m_Controller;
 
         private void OnTriggerEnter(Collider other)
         {

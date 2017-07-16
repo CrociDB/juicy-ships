@@ -68,6 +68,11 @@ namespace Ship
 
             m_FoVTween = m_Camera.DOFieldOfView(m_DefaultFoV, .2f).SetEase(Ease.InCirc);
         }
+
+        public void ShakeDestroy()
+        {
+            m_Camera.DOShakePosition(.2f, .5f, 100, 220);
+        }
     }
 }
 

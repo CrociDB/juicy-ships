@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ship;
 using UnityEngine;
 
 namespace Entities
@@ -13,8 +14,13 @@ namespace Entities
         {
             if (other.tag == "Player")
             {
+                TouchedPlayer(other.GetComponent<Ship.ShipObject>());
                 DestroyMyself();
             }
+        }
+
+        protected virtual void TouchedPlayer(ShipObject shipObject)
+        {
         }
 
         protected virtual void DestroyMyself()

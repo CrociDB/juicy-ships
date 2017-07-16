@@ -1,8 +1,11 @@
-﻿using SimpleStateMachine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+
+using DG.Tweening;
+
+using SimpleStateMachine;
 using Game;
 
 namespace Ship
@@ -100,6 +103,11 @@ namespace Ship
             }
 
             return m_Waypoints[m_CurrentWaypointY - 1].m_Waypoints[m_CurrentWaypointX];
+        }
+
+        internal void DestroyedEnemy()
+        {
+            m_GameManager.Camera.ShakeDestroy();
         }
 
         void Update()
