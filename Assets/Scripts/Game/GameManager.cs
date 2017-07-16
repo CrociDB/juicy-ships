@@ -11,9 +11,18 @@ namespace Game
     public class GameManager : MonoBehaviour
     {
         public ShipController m_ShipController;
-        public SectionManager m_SectionManager;
+        public SectionManager m_SectionManager; 
 
-        public PostProcessingBehaviour m_PostProcessing;
+        [SerializeField]
+        private GameCamera m_Camera;
+
+        public GameCamera Camera
+        {
+            get
+            {
+                return m_Camera;
+            }
+        }
 
         void Start()
         {
@@ -25,11 +34,6 @@ namespace Game
             yield return new WaitForEndOfFrame();
             m_ShipController.Init();
             m_SectionManager.Init(m_ShipController);
-        }
-
-        public void ToggleEffects()
-        {
-            m_PostProcessing.enabled = !m_PostProcessing.enabled;
         }
     }
 }
