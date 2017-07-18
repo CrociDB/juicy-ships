@@ -56,7 +56,7 @@ namespace Ship
                 m_FoVTween.Kill();
             }
 
-            m_FoVTween = m_Camera.DOFieldOfView(75f, .2f).SetEase(Ease.OutCirc);
+            m_FoVTween = m_Camera.DOFieldOfView(75f, .08f).SetEase(Ease.Linear);
         }
 
         public void StopDashing()
@@ -66,7 +66,7 @@ namespace Ship
                 m_FoVTween.Kill();
             }
 
-            m_FoVTween = m_Camera.DOFieldOfView(m_DefaultFoV, .2f).SetEase(Ease.InCirc);
+            m_FoVTween = m_Camera.DOFieldOfView(m_DefaultFoV, .1f).SetEase(Ease.Linear);
         }
 
         public void ShakeDestroy()
