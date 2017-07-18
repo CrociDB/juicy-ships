@@ -91,6 +91,7 @@ namespace SectionControl
                     for (int j = 0; j < toRemove.Length; j++)
                     {
                         var r = toRemove[j];
+                        r.Destroy();
                         Destroy(r.gameObject);
                         m_CurrentSections[i].Remove(r);
                     }

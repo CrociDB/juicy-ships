@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Pool;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace SectionControl
         private string[] m_Entities;
 
         private Vector3 m_Size;
+        [SerializeField]
+        private List<Poolable> m_Poolables;
 
         public Vector3 LastPosition
         {
@@ -38,6 +41,8 @@ namespace SectionControl
 
         public void Build()
         {
+            m_Poolables = new List<Poolable>();
+
             float farthestDepth = 0f;
             int i = 0;
 
@@ -70,10 +75,13 @@ namespace SectionControl
             int v;
             if (int.TryParse(c.ToString(), out v))
             {
-                var prefab = m_Manager.m_Entities[v];
-                var go = Instantiate(prefab, transform);
+                var prefab = m_Manager.m_Entities[v].GetComponent<Poolable>();
+                var go = PoolManager.Instance.InstantiatePool(prefab, transform);
 
                 go.transform.localPosition = m_Manager.m_Ship.m_Waypoints[0].m_Waypoints[i].position + (go.transform.forward * depth);
+
+                var pool = go.GetComponent<Poolable>();
+                m_Poolables.Add(pool);
 
                 var d = go.GetComponent<Entity>().m_ZDistance;
                 return d;
@@ -85,6 +93,17 @@ namespace SectionControl
         public void Move(float speed)
         {
             transform.position += transform.forward * -(speed * Time.deltaTime);
+        }
+
+        public void Destroy()
+        {
+            foreach (var p in m_Poolables)
+            {
+                if (p.Active)
+                {
+                    p.Deactivate();
+                }
+            }
         }
     }
 }
