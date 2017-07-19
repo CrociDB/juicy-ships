@@ -62,7 +62,18 @@ namespace Ship
         {
             m_GameManager = gameManager;
             m_CurrentWaypointX = 1;
+
+            m_Ship.OnCollide += CollidedShip;
+
             SetState(new Idle());
+        }
+
+        private void CollidedShip(Collider obj)
+        {
+            if (obj.tag == "Enemy" && !Dashing)
+            {
+                m_GameManager.GameOver();
+            }
         }
 
         internal Transform GetLeft()
@@ -108,11 +119,6 @@ namespace Ship
         internal void DestroyedEnemy()
         {
             m_GameManager.Camera.ShakeDestroy();
-        }
-
-        void Update()
-        {
-
         }
     }
 }

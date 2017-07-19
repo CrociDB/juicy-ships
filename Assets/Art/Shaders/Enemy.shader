@@ -64,7 +64,7 @@ Shader "Juicy/GeneralObject"
 }
 /*ASEBEGIN
 Version=11001
--1359;178;1352;702;1557.837;662.6573;2.199999;True;True
+-1359;178;1352;702;1270.137;640.1571;1.899999;True;True
 Node;AmplifyShaderEditor.WorldPosInputsNode;30;-824.777,420.5826;Float;False;0;4;FLOAT3;FLOAT;FLOAT;FLOAT
 Node;AmplifyShaderEditor.WorldSpaceCameraPos;31;-861.5768,570.9827;Float;False;0;1;FLOAT3
 Node;AmplifyShaderEditor.DistanceOpNode;33;-570.3764,480.9828;Float;False;2;0;FLOAT3;0.0;False;1;FLOAT3;0.0,0,0;False;1;FLOAT
@@ -143,4 +143,4 @@ WireConnection;0;0;68;0
 WireConnection;0;2;60;0
 WireConnection;0;11;37;0
 ASEEND*/
-//CHKSM=2131395E6B1FD0C160987BC22A4A3AD48C935BE1
+//CHKSM=EA77733D4A1E5CD12E0EF70437880A698618C364

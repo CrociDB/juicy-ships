@@ -12,6 +12,9 @@ namespace Ship
     [RequireComponent(typeof(Camera))]
     public class GameCamera : MonoBehaviour
     {
+        [SerializeField]
+        private FadeEffect m_FadeEffect;
+
         private PostProcessingBehaviour m_PostProcessing;
         private Camera m_Camera;
 
@@ -27,6 +30,10 @@ namespace Ship
 
             m_DefaultFoV = m_Camera.fieldOfView;
             m_DefaultColor = m_Camera.backgroundColor;
+
+            m_FadeEffect.ShowAll();
+
+            m_PostProcessing.enabled = PlayerPrefs.GetInt("PostEffects", 0) == 1;
         }
 
         // Change values
@@ -47,6 +54,7 @@ namespace Ship
         public void ToggleEffects()
         {
             m_PostProcessing.enabled = !m_PostProcessing.enabled;
+            PlayerPrefs.SetInt("PostEffects", Convert.ToInt32(m_PostProcessing.enabled));
         }
 
         public void StartDashing()
@@ -72,6 +80,16 @@ namespace Ship
         public void ShakeDestroy()
         {
             m_Camera.DOShakePosition(.2f, .5f, 100, 220);
+        }
+
+        public void FadeIn(float time)
+        {
+            m_FadeEffect.FadeIn(time);
+        }
+
+        public void FadeOut(float time)
+        {
+            m_FadeEffect.FadeOut(time);
         }
     }
 }

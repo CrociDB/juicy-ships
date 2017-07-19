@@ -6,6 +6,9 @@ using UnityEngine;
 using System;
 using UnityEngine.PostProcessing;
 
+using DG.Tweening;
+using UnityEngine.SceneManagement;
+
 namespace Game
 {
     public class GameManager : MonoBehaviour
@@ -34,6 +37,21 @@ namespace Game
             yield return new WaitForEndOfFrame();
             m_ShipController.Init(this);
             m_SectionManager.Init(m_ShipController);
+            m_Camera.FadeIn(1f);
+        }
+
+        public void GameOver()
+        {
+            StartCoroutine(GameOverRoutine());
+        }
+
+        private IEnumerator GameOverRoutine()
+        {
+            m_SectionManager.m_Speed = 0f;
+            yield return new WaitForSeconds(.1f);
+            m_Camera.FadeOut(1f);
+            yield return new WaitForSeconds(1f);
+            SceneManager.LoadScene("Menu");
         }
     }
 }
