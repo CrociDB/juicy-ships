@@ -11,7 +11,7 @@ public class FadeEffect : MonoBehaviour
     public void ShowAll()
     {
         gameObject.SetActive(true);
-        m_Material.SetFloat("_FadeVal", 6f);
+        m_Material.SetFloat("_FadeVal", 20f);
     }
 
     public void HideAll()
@@ -26,6 +26,6 @@ public class FadeEffect : MonoBehaviour
 
     public void FadeOut(float time)
     {
-        m_Material.DOFloat(6f, "_FadeVal", time).SetEase(Ease.InQuad);
+        m_Material.DOFloat(20f, "_FadeVal", time).SetEase(Ease.InQuad);
     }
 }
