@@ -8,13 +8,17 @@ using UnityEngine.PostProcessing;
 
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using Game.UI;
+using SimpleStateMachine;
+using Game.States;
 
 namespace Game
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : GameEntity
     {
         public ShipController m_ShipController;
-        public SectionManager m_SectionManager; 
+        public LevelManager m_LevelManager;
+        public UIManager m_UIManager;
 
         [SerializeField]
         private GameCamera m_Camera;
@@ -27,8 +31,25 @@ namespace Game
             }
         }
 
-        void Start()
+        public LevelManager Level
         {
+            get
+            {
+                return m_LevelManager;
+            }
+        }
+
+        public UIManager UIManager
+        {
+            get
+            {
+                return m_UIManager;
+            }
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             StartCoroutine(InitGame());
         }
 
@@ -36,8 +57,15 @@ namespace Game
         {
             yield return new WaitForEndOfFrame();
             m_ShipController.Init(this);
-            m_SectionManager.Init(m_ShipController);
-            m_Camera.FadeIn(1f);
+            m_LevelManager.Init(m_ShipController, OnReachEndOfLevel);
+            m_UIManager.Init();
+
+            SetState(new Pregame());
+        }
+
+        private void OnReachEndOfLevel()
+        {
+            SetState(new Pregame());
         }
 
         public void GameOver()
@@ -47,11 +75,17 @@ namespace Game
 
         private IEnumerator GameOverRoutine()
         {
-            m_SectionManager.m_Speed = 0f;
+            m_LevelManager.m_Speed = 0f;
             yield return new WaitForSeconds(.1f);
             m_Camera.FadeOut(1f);
             yield return new WaitForSeconds(1f);
             SceneManager.LoadScene("Menu");
+        }
+
+        internal void PlayGame()
+        {
+            m_ShipController.PlayGame();
+            m_LevelManager.PlayGame();
         }
     }
 }
