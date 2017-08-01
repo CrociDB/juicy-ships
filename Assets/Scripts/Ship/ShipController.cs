@@ -24,6 +24,9 @@ namespace Ship
         [SerializeField]
         internal ShipLineWaypoints[] m_Waypoints;
 
+        [SerializeField]
+        internal Transform m_StartPoint;
+
         internal int m_CurrentWaypointX;
         internal int m_CurrentWaypointY;
 
@@ -61,10 +64,15 @@ namespace Ship
         public void Init(GameManager gameManager)
         {
             m_GameManager = gameManager;
-            m_CurrentWaypointX = 1;
 
             m_Ship.OnCollide += CollidedShip;
+        }
 
+        internal void PlayGame()
+        {
+            m_CurrentWaypointX = 1;
+            m_CurrentWaypointY = 0;
+            m_Ship.transform.position = m_StartPoint.transform.position;
             SetState(new Idle());
         }
 

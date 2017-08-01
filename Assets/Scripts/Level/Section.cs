@@ -10,7 +10,7 @@ namespace SectionControl
     public class Section : MonoBehaviour
     {
         [HideInInspector]
-        public SectionManager m_Manager;
+        public LevelManager m_Manager;
 
         [SerializeField]
         private float m_DefaultSpace;

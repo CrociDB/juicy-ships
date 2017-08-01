@@ -9,7 +9,7 @@ using System;
 
 namespace SectionControl
 {
-    public class SectionManager : MonoBehaviour
+    public class LevelManager : MonoBehaviour
     {
         [Header("Prefab Settings")]
         public Entity[] m_Entities;
@@ -24,12 +24,27 @@ namespace SectionControl
         public ShipController m_Ship;
 
         private int m_Steps;
-
         private List<List<Section>> m_CurrentSections;
+        private int m_CurrentSectionCount;
 
-        public void Init(ShipController shipController)
+        private Action OnReachEndOfLevel;
+
+        private int m_CurrentLevel;
+        private int m_CurrentLevelSections;
+        private bool m_Playing;
+
+        public int CurrentLevel
+        {
+            get
+            {
+                return m_CurrentLevel;
+            }
+        }
+
+        public void Init(ShipController shipController, Action reachEndOfLevel)
         {
             m_Ship = shipController;
+            OnReachEndOfLevel = reachEndOfLevel;
 
             m_CurrentSections = new List<List<Section>>();
             foreach (var line in m_Ship.m_Lines)
@@ -39,9 +54,26 @@ namespace SectionControl
             }
         }
 
+        internal void SetNextLevel()
+        {
+            m_CurrentLevel++;
+            m_CurrentSectionCount = 0;
+            m_CurrentLevelSections = 5 + (m_CurrentLevel / 2);
+        }
+
+        internal void PlayGame()
+        {
+            m_Playing = true;
+        }
+
+        internal void StopLevel()
+        {
+            m_Playing = false;
+        }
+
         void Update()
         {
-            if (m_CurrentSections == null)
+            if (m_CurrentSections == null || !m_Playing)
             {
                 return;
             }
@@ -67,10 +99,19 @@ namespace SectionControl
                     }
                 }
 
-                if (front < m_ThresholdFront)
+                // Should we create more sections?
+                if (!LevelSectionAchieved())
                 {
-                    CreateSection(l, endPosition);
+                    if (line.Count == 0)
+                    {
+                        CreateSection(l, transform.forward * m_ThresholdFront);
+                    }
+                    else if (front < m_ThresholdFront)
+                    {
+                        CreateSection(l, endPosition);
+                    }
                 }
+
 
                 l++;
             }
@@ -96,6 +137,16 @@ namespace SectionControl
                         m_CurrentSections[i].Remove(r);
                     }
                 }
+
+                if (LevelSectionAchieved() && 
+                    m_CurrentSections.Select(sec => sec.Count).Sum() == 0)
+                {
+                    StopLevel();
+                    if (OnReachEndOfLevel != null)
+                    {
+                        OnReachEndOfLevel.Invoke();
+                    }
+                }
             }
         }
 
@@ -109,7 +160,14 @@ namespace SectionControl
             section.transform.position = pos + m_Ship.m_Lines[line].transform.position;
             section.Build();
 
+            m_CurrentSectionCount++;
             m_CurrentSections[line].Add(section);
+        }
+
+        // Level evaluators
+        public bool LevelSectionAchieved()
+        {
+            return m_CurrentSectionCount >= m_CurrentLevelSections * 2;
         }
     }
 }

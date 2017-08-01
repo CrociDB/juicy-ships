@@ -8,6 +8,8 @@ public class FadeEffect : MonoBehaviour
 {
     public Material m_Material;
 
+    private bool m_Faded = false;
+
     public void ShowAll()
     {
         gameObject.SetActive(true);
@@ -21,11 +23,16 @@ public class FadeEffect : MonoBehaviour
 
     public void FadeIn(float time)
     {
+        m_Faded = false;
         m_Material.DOFloat(0f, "_FadeVal", time).SetEase(Ease.OutCirc);
     }
 
     public void FadeOut(float time)
     {
-        m_Material.DOFloat(20f, "_FadeVal", time).SetEase(Ease.InQuad);
+        if (!m_Faded)
+        {
+            m_Faded = true;
+            m_Material.DOFloat(20f, "_FadeVal", time).SetEase(Ease.InQuad);
+        }
     }
 }
