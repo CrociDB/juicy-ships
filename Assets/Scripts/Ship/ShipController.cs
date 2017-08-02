@@ -68,6 +68,11 @@ namespace Ship
             m_Ship.OnCollide += CollidedShip;
         }
 
+        internal void FlyAway()
+        {
+            SetState(new FlyAway());
+        }
+
         internal void PlayGame()
         {
             m_CurrentWaypointX = 1;

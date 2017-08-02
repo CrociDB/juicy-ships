@@ -65,7 +65,7 @@ namespace Game
 
         private void OnReachEndOfLevel()
         {
-            SetState(new Pregame());
+            SetState(new Postgame());
         }
 
         public void GameOver()

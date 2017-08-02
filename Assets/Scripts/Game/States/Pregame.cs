@@ -19,9 +19,6 @@ namespace Game.States
 
         private IEnumerator PregameFlow()
         {
-            m_Manager.Camera.FadeOut(1.0f);
-            yield return new WaitForSeconds(1f);
-
             m_Manager.Level.SetNextLevel();
             m_Manager.UIManager.LevelStart(m_Manager.Level.CurrentLevel);
             yield return new WaitForSeconds(1.5f);
