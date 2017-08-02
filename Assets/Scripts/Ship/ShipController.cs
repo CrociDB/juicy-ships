@@ -40,6 +40,9 @@ namespace Ship
         public float m_LerpRate = 8f;
         public float m_TimeInDash = .5f;
 
+        [HideInInspector]
+        internal bool m_CanMove;
+
         public GameManager GameManager
         {
             get
@@ -77,8 +80,14 @@ namespace Ship
         {
             m_CurrentWaypointX = 1;
             m_CurrentWaypointY = 0;
+            m_CanMove = true;
             m_Ship.transform.position = m_StartPoint.transform.position;
             SetState(new Idle());
+        }
+
+        internal void Stop()
+        {
+            m_CanMove = false;
         }
 
         private void CollidedShip(Collider obj)

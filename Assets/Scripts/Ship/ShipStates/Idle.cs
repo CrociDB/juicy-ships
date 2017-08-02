@@ -32,25 +32,28 @@ namespace Ship
                 Quaternion.identity,
                 Time.deltaTime * m_Controller.m_LerpRate * .7f);
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (m_Controller.m_CanMove)
             {
-                GoLeft();
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                GoRight();
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                GoUp();
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                GoDown();
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Dash();
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    GoLeft();
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    GoRight();
+                }
+                else if (Input.GetKeyDown(KeyCode.W))
+                {
+                    GoUp();
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    GoDown();
+                }
+                else if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Dash();
+                }
             }
         }
 

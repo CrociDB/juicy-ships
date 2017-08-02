@@ -70,15 +70,11 @@ namespace Game
 
         public void GameOver()
         {
-            StartCoroutine(GameOverRoutine());
+            SetState(new Died());
         }
 
-        private IEnumerator GameOverRoutine()
+        internal void LeaveGame()
         {
-            m_LevelManager.m_Speed = 0f;
-            yield return new WaitForSeconds(.1f);
-            m_Camera.FadeOut(1f);
-            yield return new WaitForSeconds(1f);
             SceneManager.LoadScene("Menu");
         }
 
