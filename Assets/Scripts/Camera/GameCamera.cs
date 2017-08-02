@@ -79,7 +79,7 @@ namespace Ship
 
         public void ShakeDestroy()
         {
-            m_Camera.DOShakePosition(.2f, .5f, 100, 220);
+            m_Camera.DOShakePosition(.2f, 1f, 50, 220);
         }
 
         public void FadeIn(float time)
